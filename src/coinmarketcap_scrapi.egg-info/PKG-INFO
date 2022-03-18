@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: coinmarketcap-scrapi
+Version: 1.0
+Summary: Scrapper of the CoinMarketCap website
+Home-page: https://wwww.github.com/Ran-n/coinmarketcap_scrapi
+Author: Ran#
+Author-email: ran-n@tutanota.com
+License: GPLv3
+Project-URL: Bug Tracker, https://wwww.github.com/Ran-n/coinmarketcap_scrapi/issues
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Text Processing :: General
+Classifier: Natural Language :: Galician
+Classifier: Natural Language :: Portuguese
+Classifier: Natural Language :: English
+Classifier: Natural Language :: Spanish
+Requires-Python: >=3.8.5
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# coinmarketcap_scrapi
+
+
