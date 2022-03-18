@@ -18,7 +18,7 @@ info coinmarketcap_scrapi
 # ------------------------------------------------------------------------------
 
 __nome__ = 'coinmarketcap_scrap'
-__version__ = '0.0'
+__version__ = '1.0'
 __autor__ = 'Ran#'
 __creditos__ = 'Ran#'
 __licenza__ = 'GPLv3'
