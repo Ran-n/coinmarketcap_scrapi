@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 #+ Autor:  	Ran#
 #+ Creado: 	2022/03/18 16:24:06.894459
-#+ Editado:	2022/03/18 17:32:52.780587
+#+ Editado:	2022/03/18 17:56:31.382793
 # ------------------------------------------------------------------------------
 from typing import Union, List, Optional
 import json
@@ -127,15 +127,11 @@ class CoinMarketCap:
         if type(moedas) == list:
             moedas = ','.join(moedas)
 
-        json_devolto = json.loads(self.__r.get(self.get_lig_top(inicio, topx, moedas)).text)
-        """
         while True:
-            print('chamada')
             json_devolto = json.loads(self.__r.get(self.get_lig_top(inicio, topx, moedas)).text)
 
-            if json_devolto['status']['error_code'] == 0:
+            if json_devolto['status']['error_code'] == '0':
                 break
-        """
 
         lista_top = []
         for monero in json_devolto['data']['cryptoCurrencyList']:
