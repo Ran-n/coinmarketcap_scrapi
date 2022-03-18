@@ -1,0 +1,13 @@
+https://api.coinmarketcap.com/data-api/v3/cryptocurrency/listing?start=1&limit=200&sortBy=market_cap&sortType=desc&convert=USD,EUR,BTC,ETHo,XMR&cryptoType=all&tagType=all&audited=false
+
+https://api.coinmarketcap.com/data-api/v3/topsearch/rank
+
+https://api.coinmarketcap.com/data-api/v3/sector/w/lite-list
+
+https://api.coinmarketcap.com/data-api/v3/map/all?listing_status=active,untracked&exchangeAux=is_active,status&cryptoAux=is_active,status&start=1&limit=10000
+
+https://api.coinmarketcap.com/data-api/v3/map/all?listing_status=active,untracked&exchangeAux=is_active,status&cryptoAux=is_active,status&start=10001&limit=10000
+
+https://api.coinmarketcap.com/data-api/v3/map/all?listing_status=active,untracked&exchangeAux=is_active,status&cryptoAux=is_active,status
+
+https://api.coinmarketcap.com/data-api/v3/cryptocurrency/listing
