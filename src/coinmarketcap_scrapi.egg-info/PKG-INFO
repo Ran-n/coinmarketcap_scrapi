@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: coinmarketcap-scrapi
-Version: 1.0
+Version: 1.1
 Summary: Scrapper of the CoinMarketCap website
 Home-page: https://wwww.github.com/Ran-n/coinmarketcap_scrapi
 Author: Ran#
@@ -38,7 +38,7 @@ bc1q79vja8jzr27dxaf3ylu7e49ady8zq0jsm5qfk6
 **Wownero** <img src="https://raw.githubusercontent.com/Ran-n/svgs/main/divisas/wownero/wownero_0.svg" width="20" alt="wownero logo" title="Wownero">  
 WW2RheTNrq8goAi42Dz5AKUj1qLSaTSSgiH7sHR2qRqojg238EXP3MM3xuUgswriET7UrpkEoYaCkecBhnU49oxM1dZyYoSmm
 
-## [XFCR](https://github.com/Ran-n/coinmarketcap_scrapper/blob/main/doc/xFCR/indekso.md)
+## [XFCR](https://github.com/Ran-n/coinmarketcap_scrapi/blob/main/doc/xFCR/indekso.md)
 ### Actual (v1.1)
 - [ ] Facer que a función de top devolva máis datos se así se lle explicita.
 - [ ] Implementar a función para buscar unha moeda por nome, simbolo ou ligazón/slug.

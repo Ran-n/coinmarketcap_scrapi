@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 #+ Autor:  	Ran#
 #+ Creado: 	2022/03/18 16:24:06.894459
-#+ Editado:	2022/03/18 17:56:31.382793
+#+ Editado:	2022/03/18 19:08:52.449491
 # ------------------------------------------------------------------------------
 from typing import Union, List, Optional
 import json
@@ -25,16 +25,19 @@ class CoinMarketCap:
     __reintentos: int
 
     # constructor --------------------------------------------------------------
-    def __init__(self, verbose: bool = False, proxied: bool = False, timeout: int = 10, reintentos: int = 5) -> None:
+    def __init__(self, verbose: bool = False, r: Proxy = None, proxied: bool = False, timeout: int = 10, reintentos: int = 5) -> None:
         self.__verbose = verbose
         self.__proxied = proxied
         self.__timeout = timeout
         self.__reintentos = reintentos
 
         if proxied:
-            self.__r = Proxy(verbose= verbose)
-            self.__r.set_timeout(timeout)
-            self.__r.set_reintentos(reintentos)
+            if r:
+                self.__r = r
+            else:
+                self.__r = Proxy(verbose= verbose)
+                self.__r.set_timeout(timeout)
+                self.__r.set_reintentos(reintentos)
         else:
             self.__r = requests
     # --------------------------------------------------------------------------
@@ -95,6 +98,14 @@ class CoinMarketCap:
     # --------------------------------------------------------------------------
 
     # funcions -----------------------------------------------------------------
+    @staticmethod
+    def check_pax_web(pax_web_catex: str) -> dict:
+        while True:
+            json_devolto = json.loads(pax_web_catex)
+            if json_devolto['status']['error_code'] == '0':
+                return json_devolto
+
+
     def crudo(self, moedas: Union[str, List[str]] = 'usd') -> List[dict]:
         """
         """
@@ -103,7 +114,8 @@ class CoinMarketCap:
         if not lazy_check_types(moedas, str):
             raise ErroTipado('Os tipos das variables non entran dentro do esperado')
 
-        return json.loads(self.__r.get(self.get_lig_top(1, self.get_max_cant_moedas(), moedas)).text)
+        return self.check_pax_web(self.__r.get(self.get_lig_top(1, self.get_max_cant_moedas(), moedas)).text)
+
 
     def top(self, moedas: Union[str, List[str]] = 'usd', inicio: Optional[int] = 1, topx: Optional[int] = 10) -> List[dict]:
         """
@@ -127,14 +139,8 @@ class CoinMarketCap:
         if type(moedas) == list:
             moedas = ','.join(moedas)
 
-        while True:
-            json_devolto = json.loads(self.__r.get(self.get_lig_top(inicio, topx, moedas)).text)
-
-            if json_devolto['status']['error_code'] == '0':
-                break
-
         lista_top = []
-        for monero in json_devolto['data']['cryptoCurrencyList']:
+        for monero in check_pax_web(self.__r.get(self.get_lig_top(inicio, topx, moedas)).text)['data']['cryptoCurrencyList']:
             lista_top.append({
                 'posicion': monero['cmcRank'],
                 'simbolo': monero['symbol'],
