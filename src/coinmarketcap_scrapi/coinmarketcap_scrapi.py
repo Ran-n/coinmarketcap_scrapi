@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 #+ Autor:  	Ran#
 #+ Creado: 	2022/03/18 16:24:06.894459
-#+ Editado:	2022/03/18 19:08:52.449491
+#+ Editado:	2022/03/19 22:42:02.127953
 # ------------------------------------------------------------------------------
 from typing import Union, List, Optional
 import json
@@ -31,15 +31,16 @@ class CoinMarketCap:
         self.__timeout = timeout
         self.__reintentos = reintentos
 
-        if proxied:
-            if r:
-                self.__r = r
-            else:
+        if r:
+            self.__r = r
+            self.__proxied = True
+        else:
+            if proxied:
                 self.__r = Proxy(verbose= verbose)
                 self.__r.set_timeout(timeout)
                 self.__r.set_reintentos(reintentos)
-        else:
-            self.__r = requests
+            else:
+                self.__r = requests
     # --------------------------------------------------------------------------
 
     # getters ------------------------------------------------------------------
@@ -80,7 +81,7 @@ class CoinMarketCap:
     # verbose
     def set_verbose(self, novo_verbose: bool) -> None:
         self.__verbose = novo_verbose
-        if self.get_proxied(): self.r.set_verbose(novo_verbose)
+        if self.get_proxied(): self.__r.set_verbose(novo_verbose)
 
     # proxied
     def set_proxied(self, novo_proxied: bool) -> None:
@@ -89,12 +90,12 @@ class CoinMarketCap:
     # timeout
     def set_timeout(self, novo_timeout: int) -> None:
         self.__timeout= novo_timeout
-        if self.get_proxied(): self.r.set_timeout(novo_timeout)
+        if self.get_proxied(): self.__r.set_timeout(novo_timeout)
 
     # reintentos
     def set_reintentos(self, novo_reintentos: int) -> None:
         self.__reintentos= novo_reintentos
-        if self.get_reintentos(): self.r.set_timeout(novo_reintentos)
+        if self.get_reintentos(): self.__r.set_reintentos(novo_reintentos)
     # --------------------------------------------------------------------------
 
     # funcions -----------------------------------------------------------------
@@ -105,6 +106,12 @@ class CoinMarketCap:
             if json_devolto['status']['error_code'] == '0':
                 return json_devolto
 
+    @staticmethod
+    def arango_lst_moneroj(moneroj: List[str]) -> str:
+        if type(moneroj) == list:
+            moneroj = ','.join(moneroj)
+        return moneroj.replace(' ','')
+
 
     def crudo(self, moedas: Union[str, List[str]] = 'usd') -> List[dict]:
         """
@@ -113,6 +120,8 @@ class CoinMarketCap:
         # se mete mal o tipo dos valores saca erro
         if not lazy_check_types(moedas, str):
             raise ErroTipado('Os tipos das variables non entran dentro do esperado')
+
+        moedas = self.arango_lst_moneroj(moedas)
 
         return self.check_pax_web(self.__r.get(self.get_lig_top(1, self.get_max_cant_moedas(), moedas)).text)
 
@@ -135,12 +144,10 @@ class CoinMarketCap:
         elif topx == 0:
             topx = self.get_max_cant_moedas()
 
-        moedas = moedas.replace(' ','')
-        if type(moedas) == list:
-            moedas = ','.join(moedas)
+        moedas = self.arango_lst_moneroj(moedas)
 
         lista_top = []
-        for monero in check_pax_web(self.__r.get(self.get_lig_top(inicio, topx, moedas)).text)['data']['cryptoCurrencyList']:
+        for monero in self.check_pax_web(self.__r.get(self.get_lig_top(inicio, topx, moedas)).text)['data']['cryptoCurrencyList']:
             lista_top.append({
                 'posicion': monero['cmcRank'],
                 'simbolo': monero['symbol'],
